@@ -27,13 +27,13 @@ class Pygsr:
         stream = audio.open(input_device_index=device_i,output_device_index=device_i,format=self.format, channels=self.channel,
                             rate=self.rate, input=True,
                             frames_per_buffer=self.chunk)
-        print "REC: "
+        print("REC: ")
         frames = []
         for i in range(0, self.rate / self.chunk * time):
             data = stream.read(self.chunk)
             frames.append(data)
         stream.stop_stream()
-        print "END"
+        print("END")
         stream.close()
         audio.terminate()
         write_frames = open_audio(self.file, 'wb')
