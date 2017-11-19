@@ -7,7 +7,6 @@ url: http://about.me/drneox
 """
 from pyaudio import PyAudio, paInt16
 from wave import open as open_audio
-#from urllib2 import Request, urlopen
 import urllib.request
 from os import system
 from json import loads
@@ -31,7 +30,7 @@ class Pygsr:
                             frames_per_buffer=self.chunk)
         print("REC: ")
         frames = []
-        for i in range(0, self.rate / self.chunk * time):
+        for i in range(0, int(self.rate / self.chunk * time)):
             data = stream.read(self.chunk)
             frames.append(data)
         stream.stop_stream()
@@ -41,7 +40,7 @@ class Pygsr:
         write_frames.setnchannels(self.channel)
         write_frames.setsampwidth(audio.get_sample_size(self.format))
         write_frames.setframerate(self.rate)
-        write_frames.writeframes(''.join(frames))
+        write_frames.writeframes(b' '.join(frames))
         write_frames.close()
         self.convert()
 
